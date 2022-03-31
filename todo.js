@@ -18,12 +18,18 @@ function ajax()
                 var output="";
                 for(var i = 0;i<response.length;i++)
             {
+                    if(response[i].complete==false){
                 //we can insert <li>tad to make it beautiful
-                output +=`<ul class="list-group gy-2 w-24">
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                 `+response[i].title+ `
+                output +=`<ul class="list-group gy-2 w-24"><li class="list-group-item"><input class="form-check-input me-1" id="box" type="checkbox" value=""  onchange= "validater()" aria-label="...">`
+                +`&nbsp`+response[i].title+ `
                  </li></ul><br>`;
+                    }
+                    else{
+                        output +=`<ul class="list-group gy-2 w-24"><li class="list-group-item"><input class="form-check-input me-1" id="box" type="checkbox" value=""  checked disabled aria-label="...">`
+                        +`&nbsp`+response[i].title+ `
+                         </li></ul><br>`;
+
+                    }
 
             }
             
@@ -38,5 +44,32 @@ xhttp.open("GET","https://jsonplaceholder.typicode.com/todos",true);
 //sending request to server
 xhttp.send();
 }
+
+
+
+function validater(){
+    var promise = new Promise(function(resolve,reject){
+         var chec = document.getElementsByClassName("box");
+         var num =0;
+         for (var i=0; i<list.length; i++){
+             if (chec[i].type == "box" && chec[i].checked == true){
+                 num++;
+             }
+         }
+         if(num%5==0 && num!=0 ){
+             resolve(`Congrats. ${num} Tasks have been Successfully Completed!!`);
+         }
+         else{
+             reject("5 Tasks are not completed");
+         }
+     })
+     get
+     .then(function(c){
+         alert(c);
+     })
+     .catch(function(s){
+         console.log(s);
+     });
+    }
         
 
